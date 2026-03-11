@@ -10,6 +10,20 @@
     <!-- Importation d'une police de secours (Special Elite) au cas où le fichier ttf met du temps à charger -->
     <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
 
+    .bouton-telecharger {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 8px 15px;
+            background-color: transparent;
+            color: #111;
+            border: 1px solid #111;
+            text-decoration: none;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .bouton-telecharger:hover { background-color: #eee; }
+    
     <style>
         /* --- 1. CHARGEMENT DE TON FICHIER .TTF --- */
         @font-face {
@@ -126,6 +140,7 @@
             <h2>Le Ruban : un nouveau journal !</h2>
             <p>Le Ruban : qu'est ce que c'est ? Explications.</p>
             <a href="article1.html" class="bouton-lire">Lire</a>
+            <a href="article1.html" download="Le-Ruban-Article1.html" class="bouton-telecharger">Télécharger</a>
         </article>
 
     </section>
@@ -133,6 +148,7 @@
 </body>
 
 </html>
+
 
 
 
