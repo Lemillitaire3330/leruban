@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Ruban - Accueil</title>
+
+    <!-- Importation d'une police de secours (Special Elite) au cas où le fichier ttf met du temps à charger -->
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. CHARGEMENT DE TON FICHIER .TTF --- */
+        @font-face {
+            font-family: 'MomsTypewriter';
+            src: url('moms_typewriter.ttf') format('truetype');
+        }
+
+        /* --- 2. STYLE GÉNÉRAL --- */
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fcfcfc;
+            color: #333;
+        }
+
+        /* --- 3. LE BANDEAU (HEADER) --- */
+        header {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 5px solid #444;
+        }
+
+        .titre-site {
+            font-family: 'MomsTypewriter', 'Special Elite', monospace;
+            font-size: 4em;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- 4. LE BLOC DE TEXTE (SOUS LE BANDEAU) --- */
+        .bloc-intro {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: justify;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* --- 5. SECTION DES ARTICLES (STYLE LISTE) --- */
+        .liste-articles {
+            display: flex;
+            flex-direction: column; /* C'est cette ligne qui met les articles en liste (les uns sous les autres) */
+            align-items: center; /* Centre les articles sur la page */
+            gap: 30px; /* Espace vertical entre chaque article */
+            max-width: 800px; /* Même largeur que ton texte d'intro pour que ce soit harmonieux */
+            margin: 0 auto 50px auto;
+            padding: 0 20px;
+        }
+
+        .article {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-left: 5px solid #111; /* Barre noire sur le côté gauche pour le style */
+            padding: 25px 30px;
+            width: 100%; /* L'article prend toute la largeur de la liste */
+            box-sizing: border-box; /* Empêche l'article de déborder de l'écran */
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .article h2 {
+            font-family: 'MomsTypewriter', 'Special Elite', monospace;
+            font-size: 1.8em; /* Titre un peu plus gros vu que l'article est plus large */
+            margin-top: 0;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 10px;
+        }
+
+        .article p {
+            font-size: 1em;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        .bouton-lire {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: #111;
+            color: white;
+            text-decoration: none;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .bouton-lire:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BANDEAU -->
+    <header>
+        <h1 class="titre-site">Le Ruban</h1>
+    </header>
+
+    <!-- BLOC DE TEXTE LIBRE -->
+    <section class="bloc-intro">
+        <p><strong>Édito du jour :</strong> Bienvenue sur la page d'accueil officielle de "Le Ruban". Cet espace est prévu pour que tu puisses écrire une petite introduction, présenter le concept du site ou raconter ce que tu souhaites. Tu peux modifier tout ce texte directement dans le code HTML. Le style utilisé ici rappelle les colonnes classiques des journaux papier pour une lecture agréable.</p>
+    </section>
+
+    <!-- LISTE DES ARTICLES -->
+    <section class="liste-articles">
+        
+        <!-- ARTICLE 1 -->
+        <article class="article">
+            <h2>Article 1</h2>
+            <p>Voici un petit résumé ou une phrase d'accroche pour donner envie de lire ton premier article. Ça parle de choses intéressantes et donne un avant-goût du contenu.</p>
+            <a href="article1.html" class="bouton-lire">Lire la suite</a>
+        </article>
+
+        <!-- ARTICLE 2 -->
+        <article class="article">
+            <h2>Article 2</h2>
+            <p>Un autre résumé pour le deuxième article. Parfait pour captiver l'attention de ton lecteur au fur et à mesure qu'il descend sur la page.</p>
+            <a href="article2.html" class="bouton-lire">Lire la suite</a>
+        </article>
+
+        <!-- ARTICLE 3 -->
+        <article class="article">
+            <h2>Article 3</h2>
+            <p>Le troisième article est tout aussi passionnant. Quelques mots suffisent ici avant que ton lecteur ne clique sur le lien pour découvrir la totalité.</p>
+            <a href="article3.html" class="bouton-lire">Lire la suite</a>
+        </article>
+
+        <!-- ARTICLE 4 -->
+        <article class="article">
+            <h2>Article 4</h2>
+            <p>Enfin, le dernier article de cette liste. Avec cette disposition verticale, on prend bien le temps de lire chaque résumé sans que les yeux ne se perdent.</p>
+            <a href="article4.html" class="bouton-lire">Lire la suite</a>
+        </article>
+
+    </section>
+
+</body>
+</html>
