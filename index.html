@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le Ruban · L’actualité</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="entete"></header>
+  <main id="contenu"></main>
+  <footer id="pied"></footer>
+
+  <script src="articles.js"></script>
+  <script>
+    entete();
+    const cat = new URLSearchParams(location.search).get('cat');
+    const liste = cat ? ARTICLES.filter(a => a.cat === cat) : ARTICLES;
+    const carte = (a, cls = '') =>
+      `<article class="carte ${cls}"><span class="rub">${a.cat}</span>
+       <h2><a href="${a.lien}">${a.titre}</a></h2><p>${a.resume}</p><time>${a.date}</time></article>`;
+
+    let html = '';
+    if (cat) {
+      html = `<h1 class="rubrique">${cat}</h1><div class="grille">${liste.map(a => carte(a)).join('')}</div>`;
+    } else if (liste.length) {
+      html = carte(liste[0], 'une') + `<div class="grille">${liste.slice(1).map(a => carte(a)).join('')}</div>`;
+    }
+    document.getElementById('contenu').innerHTML = html || '<p>Aucun article pour le moment.</p>';
+  </script>
+</body>
+</html>
