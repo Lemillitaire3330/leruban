@@ -1,0 +1,64 @@
+/* ===== LE RUBAN : feuille de style commune ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Special+Elite&display=swap');
+
+:root {
+  --papier: #f6f1e7;
+  --encre: #1a1a1a;
+  --gris: #6b665c;
+  --rouge: #a4161a;      /* la bande rouge du ruban */
+  --filet: #cfc7b6;
+  --titres: 'Playfair Display', Georgia, serif;
+  --texte: 'Source Serif 4', Georgia, serif;
+  --machine: 'Special Elite', 'Courier New', monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--papier); color: var(--encre); font: 18px/1.65 var(--texte); }
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--rouge); }
+.page { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* En-tête */
+#entete { max-width: 1080px; margin: 0 auto; padding: 0 20px; text-align: center; }
+.barre { display: flex; justify-content: space-between; font: 13px var(--machine); color: var(--gris);
+  text-transform: capitalize; padding: 10px 0; border-bottom: 1px solid var(--filet); }
+.logo { display: block; font: 400 64px/1.1 var(--machine); letter-spacing: 2px; padding: 22px 0 4px; }
+.devise { font: italic 15px var(--texte); color: var(--gris); }
+/* Le ruban : bande noire et bande rouge, comme sur une vraie machine */
+.ruban { height: 10px; margin: 18px 0 0; background: linear-gradient(var(--encre) 0 50%, var(--rouge) 50% 100%); }
+nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 26px; padding: 12px 0;
+  border-bottom: 3px double var(--encre); font: 14px var(--machine); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Accueil */
+main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 10px; }
+.rub { font: 13px var(--machine); color: var(--rouge); text-transform: uppercase; letter-spacing: 1px; }
+.rubrique { font: 900 38px var(--titres); margin: 0 0 20px; border-bottom: 1px solid var(--encre); padding-bottom: 8px; }
+.carte h2 { font: 700 22px/1.25 var(--titres); margin: 4px 0 8px; }
+.carte p { margin: 0 0 8px; font-size: 16px; color: #333; }
+.carte time { font: 12px var(--machine); color: var(--gris); }
+.une { padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--encre); }
+.une h2 { font-size: 46px; line-height: 1.1; font-weight: 900; }
+.une p { font-size: 20px; max-width: 760px; }
+.grille { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.grille .carte { border-top: 1px solid var(--filet); padding-top: 14px; }
+
+/* Article */
+.article { max-width: 720px; }
+.article h1 { font: 900 44px/1.12 var(--titres); margin: 6px 0 14px; }
+.chapo { font-size: 22px; line-height: 1.45; font-style: italic; color: #333; margin: 0 0 16px; }
+.meta { font: 13px var(--machine); color: var(--gris); padding: 10px 0; margin: 0 0 24px;
+  border-top: 1px solid var(--filet); border-bottom: 1px solid var(--filet); }
+.texte p:first-child::first-letter { font: 900 4.2em/0.8 var(--titres); float: left; padding: 6px 8px 0 0; color: var(--rouge); }
+.texte h2 { font: 700 26px var(--titres); margin: 32px 0 6px; }
+.texte blockquote { margin: 24px 0; padding-left: 18px; border-left: 4px solid var(--rouge); font-style: italic; }
+.retour { display: inline-block; margin: 20px 0; font: 14px var(--machine); }
+
+/* Pied de page */
+#pied { margin-top: 40px; border-top: 3px double var(--encre); text-align: center; padding: 20px;
+  font: 13px var(--machine); color: var(--gris); }
+
+@media (max-width: 760px) {
+  .grille { grid-template-columns: 1fr; }
+  .logo { font-size: 44px; }
+  .une h2, .article h1 { font-size: 32px; }
+  body { font-size: 17px; }
+}
