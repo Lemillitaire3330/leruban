@@ -4,7 +4,7 @@
    Les catégories apparaissent toutes seules dans le menu.
    ===================================================== */
 const ARTICLES = [
-  { titre: "Exemple : le Parlement adopte le texte après trois jours de débats", cat: "Politique", date: "16 octobre 2026", resume: "Le vote s’est joué à une poignée de voix dans un hémicycle tendu.", lien: "art0.html" },
+  { titre: "Le Ruban : Journal d'actualité politique, quoi de neuf ?", cat: "Politique", date: "16 octobre 2026", resume: "Le Ruban, nouveau journal d'actualité en ligne, présentation par La Rédaction.", lien: "art0.html" },
   { titre: "Blocus lycéens : Que va faire le gouvernement ?", cat: "Politique", date: "17 octobre 2026", resume: "Après des manifestations intensive des collectifs lycéens, avec des actions parfois controversées, que va faire le Gouvernement ?", lien: "art1.html" }
 ];
 
