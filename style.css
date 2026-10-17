@@ -41,9 +41,20 @@ main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 10px; }
 .grille { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .grille .carte { border-top: 1px solid var(--filet); padding-top: 14px; }
 
+/* Images */
+.vignette { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 10px; filter: sepia(.12) contrast(1.03); }
+.une .vignette { aspect-ratio: 21 / 9; margin-bottom: 14px; }
+.photo { margin: 0 0 26px; }
+.photo img { display: block; width: 100%; height: auto; filter: sepia(.12) contrast(1.03); }
+.photo figcaption { font: 12px var(--machine); color: var(--gris); padding-top: 8px; border-bottom: 1px solid var(--filet); padding-bottom: 8px; }
+
 /* Article */
 .article { max-width: 720px; }
 .article h1 { font: 900 44px/1.12 var(--titres); margin: 6px 0 14px; }
+.illustration { margin: 0 0 22px; }
+.illustration img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover;
+  border-bottom: 3px solid var(--rouge); }
+.illustration figcaption { font: 12px var(--machine); color: var(--gris); padding-top: 8px; }
 .chapo { font-size: 22px; line-height: 1.45; font-style: italic; color: #333; margin: 0 0 16px; }
 .meta { font: 13px var(--machine); color: var(--gris); padding: 10px 0; margin: 0 0 24px;
   border-top: 1px solid var(--filet); border-bottom: 1px solid var(--filet); }
