@@ -8,9 +8,22 @@ const ARTICLES = [
   { titre: "Blocus lycéens : Que va faire le gouvernement ?", cat: "Politique", date: "17 octobre 2026", resume: "Après des manifestations intensive des collectifs lycéens, avec des actions parfois controversées, que va faire le Gouvernement ?", lien: "art1.html" }
 ];
 
-/* ---------- Ne rien modifier en dessous (sauf nom/devise du journal) ---------- */
+const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+function lireDate(txt) {
+  txt = String(txt).toLowerCase().trim();
+  let m = txt.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return new Date(+m[1], +m[2] - 1, +m[3]).getTime();
+  m = txt.match(/(\d{1,2})\s*(?:er)?\s+([a-zéûè]+)\s+(\d{4})/);
+  const i = m ? MOIS.indexOf(m[2].replace('fevrier', 'février').replace('aout', 'août').replace('decembre', 'décembre')) : -1;
+  if (i === -1) { console.warn('Date non reconnue :', txt); return 0; }
+  return new Date(+m[3], i, +m[1]).getTime();
+}
+ARTICLES.map((a, n) => ({ a, n }))
+  .sort((x, y) => lireDate(y.a.date) - lireDate(x.a.date) || y.n - x.n)
+  .forEach((o, k) => { ARTICLES[k] = o.a; });
+ 
 const CATS = [...new Set(ARTICLES.map(a => a.cat))];
-
+ 
 function entete() {
   const d = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   document.getElementById('entete').innerHTML =
