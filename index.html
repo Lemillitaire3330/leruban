@@ -14,15 +14,17 @@
   <script src="articles.js"></script>
   <script>
     entete();
-    const cat = new URLSearchParams(location.search).get('cat');
-    const liste = cat ? ARTICLES.filter(a => a.cat === cat) : ARTICLES;
+    const param = new URLSearchParams(location.search).get('cat');
+    const cat = param ? nomCat(param) : null;
+    const liste = cat ? ARTICLES.filter(a => memeCat(a.cat, cat)) : ARTICLES;
     const carte = (a, cls = '') =>
-      `<article class="carte ${cls}"><span class="rub">${a.cat}</span>
+      `<article class="carte ${cls}"><span class="rub">${nomCat(a.cat)}</span>
        <h2><a href="${a.lien}">${a.titre}</a></h2><p>${a.resume}</p><time>${a.date}</time></article>`;
 
     let html = '';
     if (cat) {
-      html = `<h1 class="rubrique">${cat}</h1><div class="grille">${liste.map(a => carte(a)).join('')}</div>`;
+      html = `<h1 class="rubrique">${cat}</h1>` +
+        (liste.length ? `<div class="grille">${liste.map(a => carte(a)).join('')}</div>` : '<p>Aucun article dans cette rubrique pour le moment.</p>');
     } else if (liste.length) {
       html = carte(liste[0], 'une') + `<div class="grille">${liste.slice(1).map(a => carte(a)).join('')}</div>`;
     }
