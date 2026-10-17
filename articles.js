@@ -5,7 +5,7 @@
    ===================================================== */
 const ARTICLES = [
   { titre: "Exemple : le Parlement adopte le texte après trois jours de débats", cat: "Politique", date: "16 octobre 2026", resume: "Le vote s’est joué à une poignée de voix dans un hémicycle tendu.", lien: "art0.html" },
-   { titre: "Blocus lycéens : Que va faire le gouvernement ?", cat: "Politique", date: "17 octobre 2026", resume: "Après des manifestations intensive des collectifs lycéens, avec des actions parfois controversées, que va faire le Gouvernement ?", lien: "art1.html" }
+  { titre: "Blocus lycéens : Que va faire le gouvernement ?", cat: "Politique", date: "17 octobre 2026", resume: "Après des manifestations intensive des collectifs lycéens, avec des actions parfois controversées, que va faire le Gouvernement ?", lien: "art1.html" }
 ];
 
 /* ---------- Ne rien modifier en dessous (sauf nom/devise du journal) ---------- */
