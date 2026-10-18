@@ -5,7 +5,7 @@
    "cat" doit être l'une des catégories du MENU plus bas (accents et majuscules sans importance).
    ===================================================== */
 const ARTICLES = [
-  { titre: "Le Ruban : Journal d'actualité politique, quoi de neuf ?", cat: "A Propos", date: "16 octobre 2026", resume: "Le Ruban, nouveau journal d'actualité en ligne, présentation par La Rédaction.", lien: "art0.html" },
+  { titre: "Le Ruban : Qui sommes nous ?", cat: "A Propos", date: "16 octobre 2026", resume: "Le Ruban, nouveau journal d'actualité en ligne, présentation par La Rédaction.", lien: "art0.html" },
   { titre: "Blocus lycéens : Que se passe t'il ?", cat: "Politique", date: "17 octobre 2026", resume: "Après des manifestations intensive des collectifs lycéens, avec des actions parfois controversées, que va faire le Gouvernement ?", lien: "art1.html" }
 ];
 
