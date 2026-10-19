@@ -41,6 +41,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 10px; }
 .une p { font-size: 20px; max-width: 760px; }
 .grille { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .grille .carte { border-top: 1px solid var(--filet); padding-top: 14px; }
+/* sous la une, le filet noir suffit : pas de second filet sur la première rangée */
+.une + .grille .carte:nth-child(-n+3) { border-top: 0; padding-top: 0; }
 
 /* Images */
 .vignette { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 10px; filter: sepia(.12) contrast(1.03); }
@@ -62,8 +64,11 @@ main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 10px; }
 .texte p:first-child::first-letter { font: 900 4.2em/0.8 var(--titres); float: left; padding: 6px 8px 0 0; color: var(--rouge); }
 .texte h2 { font: 700 26px var(--titres); margin: 32px 0 6px; }
 .texte blockquote { margin: 24px 0; padding-left: 18px; border-left: 4px solid var(--rouge); font-style: italic; }
-.separateur { border: 0; height: 10px; margin: 44px 0 0; background: linear-gradient(var(--encre) 0 50%, var(--rouge) 50% 100%); } /* mini ruban noir/rouge */
-.separateur + .sources { margin-top: 18px; border-top: 0; padding-top: 0; }
+/* Ruban séparateur : le même que sous le titre du journal, sur toute la largeur de l'écran */
+.separateur { display: block; height: 10px; width: 100vw; margin: 48px 0 0 calc(50% - 50vw);
+  background: linear-gradient(var(--encre) 0 50%, var(--rouge) 50% 100%); }
+.separateur + .sources { margin-top: 24px; border-top: 0; padding-top: 0; }
+body { overflow-x: hidden; }
 .sources { margin-top: 36px; padding-top: 12px; border-top: 3px double var(--encre); font-size: 15px; }
 .sources h3 { font: 14px var(--machine); text-transform: uppercase; letter-spacing: 1px; color: var(--rouge); margin: 0 0 6px; }
 .sources h4 { font: 700 15px var(--titres); margin: 20px 0 4px; border-bottom: 1px solid var(--filet); padding-bottom: 3px; }
@@ -78,6 +83,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 10px; }
 
 @media (max-width: 760px) {
   .grille { grid-template-columns: 1fr; }
+  .une + .grille .carte:nth-child(n+2) { border-top: 1px solid var(--filet); padding-top: 14px; }
   .logo { font-size: 44px; }
   .une h2, .article h1 { font-size: 32px; }
   body { font-size: 17px; }
