@@ -34,6 +34,18 @@
       font: 14px var(--machine, 'Courier New', monospace); text-decoration: underline; text-underline-offset: 4px; }
     .app-pop .refuser:hover { color: var(--rouge, #a4161a); }
     .app-pop .note { display: block; margin-top: 12px; font: 12px var(--machine, 'Courier New', monospace); color: var(--gris, #6b665c); }
+    /* Bandeau permanent en haut (réapparaît à chaque actualisation) */
+    .app-bandeau { position: sticky; top: 0; z-index: 999; box-sizing: border-box; display: flex; align-items: center; gap: 12px;
+      background: var(--encre, #1a1a1a); color: var(--papier, #f6f1e7); border-bottom: 3px solid var(--rouge, #a4161a);
+      font: 13px var(--machine, 'Courier New', monospace); letter-spacing: .5px;
+      max-height: 0; opacity: 0; overflow: hidden; padding: 0 14px;
+      transition: max-height .5s ease, opacity .4s ease, padding .5s ease; }
+    .app-bandeau.ouvert { max-height: 70px; opacity: 1; padding: calc(8px + env(safe-area-inset-top, 0px)) 14px 8px; }
+    .app-bandeau .txt { flex: 1; line-height: 1.3; }
+    .app-bandeau .bt { color: var(--papier, #f6f1e7); background: var(--rouge, #a4161a); padding: 6px 12px; text-transform: uppercase; white-space: nowrap; }
+    .app-bandeau .bt:hover { background: var(--papier, #f6f1e7); color: var(--encre, #1a1a1a); }
+    .app-bandeau .x { background: none; border: 0; color: var(--papier, #f6f1e7); font-size: 22px; line-height: 1; padding: 2px 4px; cursor: pointer; opacity: .75; }
+    .app-bandeau .x:hover { opacity: 1; }
     @media (prefers-reduced-motion: reduce) { .app-pop { transition: opacity .2s; transform: none; } }
   </style>
 </head>
@@ -63,11 +75,11 @@
   </script>
 
   <script>
-    /* ===== Proposition discrète de l'application Android ===== */
+    /* ===== Application Android : bandeau permanent + proposition discrète ===== */
     (function () {
       const LIEN_APK = 'https://github.com/Lemillitaire3330/leruban/releases/download/0.0.1/LeRuban-SLNE.apk';
-      const CLE = 'ruban_app';                 // clé du localStorage
-      const DELAI_REPROPOSITION = 24 * 3600 * 1000; // 1 jour minimum après un « non »
+      const CLE = 'ruban_app';                      // clé du localStorage
+      const DELAI_REPROPOSITION = 24 * 3600 * 1000; // la fenêtre revient après 1 jour minimum
       const ua = navigator.userAgent || '';
 
       // 1) Uniquement sous Android (jamais iPhone, iPad, ordinateur...)
@@ -75,16 +87,26 @@
       // 2) Rien dans le Chromium natif d'Android (WebView = l'application elle-même)
       if (/;\s*wv\)/i.test(ua) || (/Version\/\d+\.\d+/.test(ua) && /Chrome\//.test(ua))) return;
 
-      // 3) Réponse déjà donnée ?
+      /* ---------- A) BANDEAU : réapparaît à chaque actualisation ---------- */
+      const bandeau = document.createElement('div');
+      bandeau.className = 'app-bandeau';
+      bandeau.innerHTML =
+        `<span class="txt">Téléchargez l’app <b>Le Ruban</b></span>
+         <a class="bt" href="${LIEN_APK}" download rel="noopener">Télécharger</a>
+         <button type="button" class="x" aria-label="Fermer le bandeau">×</button>`;
+      bandeau.querySelector('.x').addEventListener('click', () => {
+        bandeau.classList.remove('ouvert');
+        setTimeout(() => bandeau.remove(), 600);
+      });
+      document.body.insertBefore(bandeau, document.body.firstChild);
+      requestAnimationFrame(() => requestAnimationFrame(() => bandeau.classList.add('ouvert')));
+
+      /* ---------- B) FENÊTRE : « oui » ou « non » = même règle (retour après 1 jour) ---------- */
       let memo = null;
       try { memo = JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) {}
-      if (memo) {
-        if (memo.reponse === 'oui') return;
-        if (memo.reponse === 'non' && Date.now() - memo.date < DELAI_REPROPOSITION) return;
-      }
-      const memoriser = r => { try { localStorage.setItem(CLE, JSON.stringify({ reponse: r, date: Date.now() })); } catch (e) {} };
+      if (memo && Date.now() - memo.date < DELAI_REPROPOSITION) return;
+      const memoriser = () => { try { localStorage.setItem(CLE, JSON.stringify({ date: Date.now() })); } catch (e) {} };
 
-      // 4) La fenêtre
       const pop = document.createElement('aside');
       pop.className = 'app-pop';
       pop.setAttribute('role', 'dialog');
@@ -102,14 +124,13 @@
            <span class="note">Fichier APK : Android peut demander d’autoriser l’installation.</span>
          </div>`;
 
+      const touche = e => { if (e.key === 'Escape') { memoriser(); fermer(); } };
       const fermer = () => { pop.classList.remove('ouvert'); setTimeout(() => pop.remove(), 700); document.removeEventListener('keydown', touche); };
-      const touche = e => { if (e.key === 'Escape') { memoriser('non'); fermer(); } };
 
-      pop.querySelector('.refuser').addEventListener('click', () => { memoriser('non'); fermer(); });
-      pop.querySelector('.telecharger').addEventListener('click', () => { memoriser('oui'); setTimeout(fermer, 500); });
+      pop.querySelector('.refuser').addEventListener('click', () => { memoriser(); fermer(); });
+      pop.querySelector('.telecharger').addEventListener('click', () => { memoriser(); setTimeout(fermer, 500); });
       document.addEventListener('keydown', touche);
 
-      // 5) Apparition douce, quelques secondes après l'arrivée sur la page
       window.addEventListener('load', () => {
         setTimeout(() => {
           document.body.appendChild(pop);
