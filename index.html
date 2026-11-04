@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta name="description" content="Le Ruban est un journal indépendant consacré à l’actualité, à l’information et à l’analyse des événements. Le Ruban - Journal indépendant et gratuit. leruban. leruban-journal.Le Ruban : Journal d'actualité politique.
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Le Ruban · L’actualité</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Le Ruban",
-  "alternateName": "leruban-journal",
-  "url": "https://lemillitaire3330.github.io/leruban/"
-}
-</script>
+  <link rel="stylesheet" href="style.css?v=3">
+  <style>
+    /* Correctif : un seul filet sous l'article à la une */
+    .une + .grille .carte:nth-child(-n+3) { border-top: 0 !important; padding-top: 0 !important; }
+    @media (max-width: 760px) {
+      .une + .grille .carte:nth-child(n+2) { border-top: 1px solid #cfc7b6 !important; padding-top: 14px !important; }
+    }
+
+    /* ===== Proposition de l'application Android ===== */
+    .app-pop { position: fixed; z-index: 1000; left: 12px; right: 12px; max-width: 440px; margin: 0 auto;
+      bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      background: var(--papier, #f6f1e7); color: var(--encre, #1a1a1a); border: 1px solid var(--encre, #1a1a1a);
+      box-shadow: 0 14px 34px rgba(0,0,0,.28);
+      opacity: 0; transform: translateY(40px); pointer-events: none;
+      transition: opacity .45s ease, transform .55s cubic-bezier(.2,.8,.2,1); }
+    .app-pop.ouvert { opacity: 1; transform: none; pointer-events: auto; }
+    .app-pop .ruban-pop { height: 8px; background: linear-gradient(var(--encre, #1a1a1a) 0 50%, var(--rouge, #a4161a) 50% 100%); }
+    .app-pop .corps { padding: 16px 18px 18px; }
+    .app-pop .etiquette { font: 12px var(--machine, 'Courier New', monospace); color: var(--rouge, #a4161a); text-transform: uppercase; letter-spacing: 1px; }
+    .app-pop h2 { font: 900 22px/1.2 var(--titres, Georgia, serif); margin: 4px 0 6px; }
+    .app-pop p { font: 15px/1.5 var(--texte, Georgia, serif); margin: 0 0 14px; color: #333; }
+    .app-pop .actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .app-pop .telecharger { display: inline-block; background: var(--encre, #1a1a1a); color: var(--papier, #f6f1e7);
+      font: 15px var(--machine, 'Courier New', monospace); text-transform: uppercase; letter-spacing: 1px;
+      padding: 10px 22px; border-bottom: 3px solid var(--rouge, #a4161a); transition: background .2s; }
+    .app-pop .telecharger:hover { background: var(--rouge, #a4161a); color: var(--papier, #f6f1e7); }
+    .app-pop .refuser { background: none; border: 0; padding: 6px 0; cursor: pointer; color: var(--gris, #6b665c);
+      font: 14px var(--machine, 'Courier New', monospace); text-decoration: underline; text-underline-offset: 4px; }
+    .app-pop .refuser:hover { color: var(--rouge, #a4161a); }
+    .app-pop .note { display: block; margin-top: 12px; font: 12px var(--machine, 'Courier New', monospace); color: var(--gris, #6b665c); }
+    @media (prefers-reduced-motion: reduce) { .app-pop { transition: opacity .2s; transform: none; } }
+  </style>
 </head>
 <body>
   <header id="entete"></header>
@@ -39,6 +60,63 @@
       html = carte(liste[0], 'une') + `<div class="grille">${liste.slice(1).map(a => carte(a)).join('')}</div>`;
     }
     document.getElementById('contenu').innerHTML = html || '<p>Aucun article pour le moment.</p>';
+  </script>
+
+  <script>
+    /* ===== Proposition discrète de l'application Android ===== */
+    (function () {
+      const LIEN_APK = 'https://github.com/Lemillitaire3330/leruban/releases/download/0.0.1/LeRuban-SLNE.apk';
+      const CLE = 'ruban_app';                 // clé du localStorage
+      const DELAI_REPROPOSITION = 24 * 3600 * 1000; // 1 jour minimum après un « non »
+      const ua = navigator.userAgent || '';
+
+      // 1) Uniquement sous Android (jamais iPhone, iPad, ordinateur...)
+      if (!/Android/i.test(ua)) return;
+      // 2) Rien dans le Chromium natif d'Android (WebView = l'application elle-même)
+      if (/;\s*wv\)/i.test(ua) || (/Version\/\d+\.\d+/.test(ua) && /Chrome\//.test(ua))) return;
+
+      // 3) Réponse déjà donnée ?
+      let memo = null;
+      try { memo = JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) {}
+      if (memo) {
+        if (memo.reponse === 'oui') return;
+        if (memo.reponse === 'non' && Date.now() - memo.date < DELAI_REPROPOSITION) return;
+      }
+      const memoriser = r => { try { localStorage.setItem(CLE, JSON.stringify({ reponse: r, date: Date.now() })); } catch (e) {} };
+
+      // 4) La fenêtre
+      const pop = document.createElement('aside');
+      pop.className = 'app-pop';
+      pop.setAttribute('role', 'dialog');
+      pop.setAttribute('aria-labelledby', 'app-pop-titre');
+      pop.innerHTML =
+        `<div class="ruban-pop"></div>
+         <div class="corps">
+           <span class="etiquette">Application Android</span>
+           <h2 id="app-pop-titre">Le Ruban dans votre poche</h2>
+           <p>Lisez l’actualité plus confortablement, directement depuis votre téléphone.</p>
+           <div class="actions">
+             <a class="telecharger" href="${LIEN_APK}" download rel="noopener">Télécharger</a>
+             <button type="button" class="refuser">Non merci</button>
+           </div>
+           <span class="note">Fichier APK : Android peut demander d’autoriser l’installation.</span>
+         </div>`;
+
+      const fermer = () => { pop.classList.remove('ouvert'); setTimeout(() => pop.remove(), 700); document.removeEventListener('keydown', touche); };
+      const touche = e => { if (e.key === 'Escape') { memoriser('non'); fermer(); } };
+
+      pop.querySelector('.refuser').addEventListener('click', () => { memoriser('non'); fermer(); });
+      pop.querySelector('.telecharger').addEventListener('click', () => { memoriser('oui'); setTimeout(fermer, 500); });
+      document.addEventListener('keydown', touche);
+
+      // 5) Apparition douce, quelques secondes après l'arrivée sur la page
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.body.appendChild(pop);
+          requestAnimationFrame(() => requestAnimationFrame(() => pop.classList.add('ouvert')));
+        }, 3000);
+      });
+    })();
   </script>
 </body>
 </html>
