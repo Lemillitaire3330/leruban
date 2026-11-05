@@ -42,7 +42,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 10px; }
 .grille { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .grille .carte { border-top: 1px solid var(--filet); padding-top: 14px; }
 /* sous la une, le filet noir suffit : pas de second filet sur la première rangée */
-.une + .grille .carte:nth-child(-n+3) { border-top: 0; padding-top: 0; }
+.une + .grille .carte:nth-child(-n+3),
+.rubrique + .grille .carte:nth-child(-n+3) { border-top: 0; padding-top: 0; }
 
 /* Images */
 .vignette { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 10px; filter: sepia(.12) contrast(1.03); }
@@ -83,9 +84,9 @@ body { overflow-x: hidden; }
 
 @media (max-width: 760px) {
   .grille { grid-template-columns: 1fr; }
-  .une + .grille .carte:nth-child(n+2) { border-top: 1px solid var(--filet); padding-top: 14px; }
+  .une + .grille .carte:nth-child(n+2),
+  .rubrique + .grille .carte:nth-child(n+2) { border-top: 1px solid var(--filet); padding-top: 14px; }
   .logo { font-size: 44px; }
   .une h2, .article h1 { font-size: 32px; }
-
   body { font-size: 17px; }
 }
