@@ -7,7 +7,7 @@
 const ARTICLES = [
   { titre: "Le Ruban : Qui sommes nous ?", cat: "A Propos", date: "16 octobre 2026", resume: "Le Ruban, nouveau journal d'actualité en ligne, présentation par La Rédaction.", lien: "art0.html" },
   { titre: "Blocus lycéens : Que se passe t'il ?", cat: "Politique", date: "17 octobre 2026", resume: "Après des manifestations intensive des collectifs lycéens, avec des actions parfois controversées, que va faire le Gouvernement ?", lien: "art1.html" },
-  { titre: "Trump : Les Midterms, que se passe t'il ?", cat: "Géopolitique", date: "03 Novembre 2026", resume: "Après une série de polémiques de la part de l'administration Trump, va t'il réussir à gagner les midterms et à reconquérir les coeurs des électeurs ?", lien: "art2.html" }
+  { titre: "Trump : Les Midterms, que se passe t'il ?", cat: "Géopolitique", date: "02 Novembre 2026", resume: "Après une série de polémiques de la part de l'administration Trump, va t'il réussir à gagner les midterms et à reconquérir les coeurs des électeurs ?", lien: "art2.html" }
 ];
 
 /* =====================================================
